@@ -1,4 +1,4 @@
-class Address {
+export class Address {
    _street: string;
    _number: string;
    _zip: string;
@@ -9,5 +9,13 @@ class Address {
     this._number = number;
     this._zip = zip;
     this._city =  city;
+    this.validate();
+   }
+
+   validate() {
+    if(this._street.length === 0) throw new Error("Street is required")
+    if(this._number.length === 0) throw new Error("Number is required")
+    if(this._zip.length === 0) throw new Error("Zip is required")
+    if(this._city.length === 0) throw new Error("City is required")
    }
 }

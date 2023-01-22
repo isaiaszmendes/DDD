@@ -48,3 +48,24 @@ infra -> mundo externo (banco de dados)
   Entity or Model
     -customer(get e set)
 --------------------------------------------------
+
+Value Object 
+Quando voce se preocupa apenas com os atributos de um elemento de um model, classifique isso como um Value Object
+
+"Trate o Value Object como imutável"
+
+Cuidado com os tipos primitivos
+
+<!-- ! não -->
+address: Object
+street: string
+
+<!-- * Sim -->
+address: Address
+
+Address : {
+  street: string
+  city: string
+  ...
+  validate()
+}
