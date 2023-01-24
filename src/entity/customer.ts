@@ -1,13 +1,17 @@
 import { Address } from "./Address";
 
+export type CustomerProps = {
+  id: string
+  name: string
+}
 
-class Customer {
+export class Customer {
   _id: string;
   _name: string;
   _address!: Address;
   _active: boolean = false;
 
-  constructor({ id, name }: { id: string, name: string }) {
+  constructor({ id, name }: CustomerProps) {
     this._id = id;
     this._name = name;
     this.validate();
@@ -37,5 +41,3 @@ class Customer {
     this._address = address;
   }
 }
-
-const customer = new Customer({ id: '1', name: '' })
