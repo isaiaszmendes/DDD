@@ -49,7 +49,7 @@ infra -> mundo externo (banco de dados)
     -customer(get e set)
 --------------------------------------------------
 
-Value Object 
+# Value Object 
 Quando voce se preocupa apenas com os atributos de um elemento de um model, classifique isso como um Value Object
 
 "Trate o Value Object como imutável"
@@ -69,3 +69,6 @@ Address : {
   ...
   validate()
 }
+--------------------------------------------------
+# Agregate
+conjunto d objetos associados que tratamos como uma unidade para proposito de mudança de dados
