@@ -6,10 +6,10 @@ export type CustomerProps = {
 }
 
 export class Customer {
-  _id: string;
-  _name: string;
-  _address!: Address;
-  _active: boolean = false;
+  private _id: string;
+  private _name: string;
+  private _address!: Address;
+  private _active: boolean = false;
 
   constructor({ id, name }: CustomerProps) {
     this._id = id;
@@ -18,8 +18,8 @@ export class Customer {
   }
 
   validate() {
-    if(this._name.length === 0) throw new Error("Name is required")
     if(this._id.length === 0) throw new Error("Id is required")
+    if(this._name.length === 0) throw new Error("Name is required")
   }
 
   changeName(name: string) {
