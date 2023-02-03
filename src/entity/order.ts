@@ -9,7 +9,7 @@ export type OrderProps = {
 export class Order {
   private _id: string;
   private _customerId: string;
-  private _items: Array<OrderItem>
+  private _items: Array<OrderItem>;
   private _total: number;
 
   constructor({ id, customerId, items }: OrderProps) {
@@ -21,13 +21,16 @@ export class Order {
   }
 
   validate(): boolean {
-    if(this._id.length === 0) throw new Error("id is required")
-    if(this._customerId.length === 0) throw new Error("customerId is required")
-    if(this._items.length === 0) throw new Error("items length must be greater than 0")
+    if (this._id.length === 0) throw new Error("id is required");
+    if (this._customerId.length === 0) throw new Error("customerId is required");
+    if (this._items.length === 0) throw new Error("items length must be greater than 0");
+    if (this._items.some(item => item.quantity <= 0)) {
+      throw new Error("Quantity must be greater than zero");
+    }
     return true
   }
 
-  total() {
-    return this._items.reduce((acc, item) => acc + item._price, 0)
+  total(): number {
+    return this._items.reduce((acc, item) => acc + item.orderItemTotal(), 0);
   }
 }
