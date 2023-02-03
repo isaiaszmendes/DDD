@@ -16,11 +16,11 @@ customer.addAddress(address);
 customer.activate();
 
 const item1 = new OrderItem({
-  id: '1', name: 'Item 1', price: 10
+  id: '1', name: 'Item 1', price: 10, productId: 'p1', quantity: 1
 });
 
 const item2 = new OrderItem({
-  id: '2', name: 'Item 2', price: 15
+  id: '2', name: 'Item 2', price: 15, productId: 'p2', quantity: 1
 });
 
 const order = new Order({
