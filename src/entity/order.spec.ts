@@ -31,11 +31,11 @@ describe("Order unit test", () => {
 
     expect(order2.total()).toBe(180)
   });
-  it("should check if quantity is greater than zero", () => {
-    const item = new OrderItem({ id: '1', name: 'Item 1', price: 40, productId: 'p1', quantity: -2 });
-    const order = new Order({ id: "123", customerId: '12456', items: [item] })
-
-    expect(order.total()).toBe(80);
+  it("should throw error if the quantity is less or equal zero", () => {
+    expect(() => {   
+      const item = new OrderItem({ id: '1', name: 'Item 1', price: 40, productId: 'p1', quantity: -2 });
+      const order = new Order({ id: "123", customerId: '12456', items: [item] })
+    }).toThrowError("Quantity must be greater than zero")
 
   });
 
