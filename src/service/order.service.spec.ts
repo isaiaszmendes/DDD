@@ -12,8 +12,4 @@ describe('Order service unit test', () => {
 
     expect(OrderService.total([order1, order2])).toBe(260)
   });
-
-  it('Should calculate total all orders' , () => {
-
-  });
 })
