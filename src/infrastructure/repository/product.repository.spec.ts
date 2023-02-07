@@ -77,7 +77,7 @@ describe('Product repository test', () => {
 
 		await productRepository.create(product);
 		
-		const product2 = new Product({ id: '1', name: 'Produto 2', price: 200});
+		const product2 = new Product({ id: '2', name: 'Produto 2', price: 200});
 
 		await productRepository.create(product2);
 
