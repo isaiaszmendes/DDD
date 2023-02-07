@@ -13,6 +13,7 @@ export class ProductRepository implements ProductRepositoryInterface {
 			price: entity.price,
 		});
 	}
+
 	async update(entity: Product): Promise<void> {
 		await ProductModel.update(
 			{
@@ -25,6 +26,7 @@ export class ProductRepository implements ProductRepositoryInterface {
 				}
 			});
 	}
+
 	async find(id: string): Promise<Product> {
 		const productModel = await ProductModel.findOne({ where: { id } });
 		return new Product({
@@ -33,7 +35,14 @@ export class ProductRepository implements ProductRepositoryInterface {
 			price: productModel.price,
 		});
 	}
-	findAll(): Promise<Product[]> {
-		throw new Error('Method not implemented.');
+
+	async findAll(): Promise<Product[]> {
+		const products = await ProductModel.findAll();
+
+		return products.map(product => new Product({
+			id: product.id,
+			name: product.name,
+			price: product.price,
+		}));
 	}
 }

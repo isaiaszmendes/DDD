@@ -81,7 +81,7 @@ describe('Product repository test', () => {
 
 		await productRepository.create(product2);
 
-		const foundProducts = await await productRepository.findAll();
+		const foundProducts = await productRepository.findAll();
 		const products = [product, product2];
 
 		expect(products.length).toBe(2);
