@@ -25,4 +25,20 @@ export class Address {
 		if(this._zip.length === 0) throw new Error('Zip is required');
 		if(this._city.length === 0) throw new Error('City is required');
 	}
+
+	get	street(): string {
+		return this._street;
+	}
+	
+	get	number(): number {
+		return this._number;
+	}
+	
+	get	zip(): string {
+		return this._zip;
+	}
+	
+	get	city(): string {
+		return this._city;
+	}
 }
