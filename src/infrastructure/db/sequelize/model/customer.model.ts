@@ -29,6 +29,6 @@ export class CustomerModel extends Model {
   declare active: boolean;
 
   @Column({allowNull: false})
-  declare rewardPoints: string;
+  declare rewardPoints: number;
 
 }
