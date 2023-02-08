@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Address } from '../../domain/entity/Address';
 import { Customer } from '../../domain/entity/customer';
 import { CustomerModel } from '../db/sequelize/model/customer.model';
 import { CustomerRepository } from './customer.repository';
@@ -25,11 +26,20 @@ describe('Customer repository test', () => {
 	it('Should create a customer', async () => {
 		const customerRepository = new CustomerRepository();
 		const customer = new Customer({ id: '1', name: 'Cliente 1' });
+		const address = new Address({  street: 'Av Dona Eva', number: 20, city: 'São Paulo', zip: '74586421' });
+		customer.addAddress(address);
 
 		await customerRepository.create(customer);
 		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
 		expect(customerModel.toJSON()).toStrictEqual({
-			id: '1', name: 'Cliente 1', price: 100,
+			id: '1',
+			name: 'Cliente 1',
+			street: 'Av Dona Eva',
+			number: 20,
+			city: 'São Paulo',
+			zipCode: '74586421',
+			rewardPoints: 0,
+			active: false,
 		});
 	});
 
@@ -40,7 +50,7 @@ describe('Customer repository test', () => {
 		await customerRepository.create(customer);
 		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
 		expect(customerModel.toJSON()).toStrictEqual({
-			id: '1', name: 'Cliente 1', price: 100,
+			id: '1', name: 'Cliente 1'
 		});
 
 		customer.changeName('Isaias');
@@ -49,7 +59,7 @@ describe('Customer repository test', () => {
 		await customerRepository.update(customer);
 		const customerModel2 = await CustomerModel.findOne({ where: { id: '1'}});
 		expect(customerModel2.toJSON()).toStrictEqual({
-			id: '1', name: 'Isaias', price: 150,
+			id: '1', name: 'Isaias'
 		});
 	});
 
