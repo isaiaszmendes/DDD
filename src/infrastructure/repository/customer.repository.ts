@@ -60,6 +60,7 @@ export class CustomerRepository implements CustomerRepositoryInterface {
 			city: customerModel.city
 		});
 		customer.changeAddress(address);
+		customer.addRewardPoints(customerModel.rewardPoints);
 		return customer;
 	}
 
@@ -79,6 +80,7 @@ export class CustomerRepository implements CustomerRepositoryInterface {
 			});
 			
 			customer.addAddress(address);
+			customer.addRewardPoints(customerModel.rewardPoints);
 
 			return customer;
 		});
