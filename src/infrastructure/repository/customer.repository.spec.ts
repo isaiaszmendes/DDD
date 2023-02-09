@@ -32,61 +32,63 @@ describe('Customer repository test', () => {
 		await customerRepository.create(customer);
 		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
 		expect(customerModel.toJSON()).toStrictEqual({
-			id: '1',
-			name: 'Cliente 1',
-			street: 'Av Dona Eva',
-			number: 20,
-			city: 'São Paulo',
-			zipCode: '74586421',
-			rewardPoints: 0,
-			active: false,
+			id: customer.id,
+			name: customer.name,
+			street: address.street,
+			number: address.number,
+			city: address.city,
+			zipCode: address.zip,
+			rewardPoints: customer.rewardPoints,
+			active: customer.isActive(),
 		});
 	});
 
 	it('Should update a customer', async () => {
 		const customerRepository = new CustomerRepository();
 		const customer = new Customer({ id: '1', name: 'Cliente 1' });
+		const address = new Address({  street: 'Av Dona Eva', number: 20, city: 'São Paulo', zip: '74586421' });
+		customer.addAddress(address);
 
 		await customerRepository.create(customer);
-		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
-		expect(customerModel.toJSON()).toStrictEqual({
-			id: '1', name: 'Cliente 1'
-		});
-
 		customer.changeName('Isaias');
-
-
 		await customerRepository.update(customer);
-		const customerModel2 = await CustomerModel.findOne({ where: { id: '1'}});
-		expect(customerModel2.toJSON()).toStrictEqual({
-			id: '1', name: 'Isaias'
+		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
+
+		expect(customerModel.toJSON()).toStrictEqual({
+			id: customer.id,
+			name: customer.name,
+			street: address.street,
+			number: address.number,
+			city: address.city,
+			zipCode: address.zip,
+			rewardPoints: customer.rewardPoints,
+			active: customer.isActive(),
 		});
 	});
 
 	it('Should find a customer', async () => {
 		const customerRepository = new CustomerRepository();
 		const customer = new Customer({ id: '1', name: 'Cliente 1'});
-
+		const address = new Address({  street: 'Av Dona Eva', number: 20, city: 'São Paulo', zip: '74586421' });
+		customer.addAddress(address);
 		await customerRepository.create(customer);
-		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
-		expect(customerModel.toJSON()).toStrictEqual({
-			id: '1', name: 'Cliente 1'
-		});
-		const foundCustomer = await customerRepository.find('1');
 
-		expect(customerModel.toJSON()).toStrictEqual({
-			id: foundCustomer.id,
-			name: foundCustomer.name,
-		});
+		const foundCustomer = await customerRepository.find(customer.id);
+
+		expect(foundCustomer).toStrictEqual(customer);
 	});
 
 	it('Should find all customers', async () => {
 		const customerRepository = new CustomerRepository();
 		const customer = new Customer({ id: '1', name: 'Cliente 1' });
+		const address = new Address({  street: 'Av Dona Eva', number: 20, city: 'São Paulo', zip: '74586421' });
+		customer.addAddress(address);
 
 		await customerRepository.create(customer);
 		
 		const customer2 = new Customer({ id: '2', name: 'Cliente 2' });
+		const address2 = new Address({  street: 'Av Don Adão', number: 5, city: 'São Paulo', zip: '82467885' });
+		customer2.addAddress(address2);
 
 		await customerRepository.create(customer2);
 
