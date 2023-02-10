@@ -24,6 +24,6 @@ const item2 = new OrderItem({
 });
 
 new Order({
-	id: '1', customerId: '412687', items: [item1, item2]
+	id: '1', customerId: '412687', items: [ item1, item2 ]
 });
 

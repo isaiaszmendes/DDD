@@ -15,7 +15,7 @@ describe('Customer repository test', () => {
 			sync: { force: true },
 		});
 
-		sequelize.addModels([CustomerModel]);
+		sequelize.addModels([ CustomerModel ]);
 		await sequelize.sync();
 	});
 
@@ -30,7 +30,7 @@ describe('Customer repository test', () => {
 		customer.addAddress(address);
 
 		await customerRepository.create(customer);
-		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
+		const customerModel = await CustomerModel.findOne({ where: { id: '1' }});
 		expect(customerModel.toJSON()).toStrictEqual({
 			id: customer.id,
 			name: customer.name,
@@ -52,7 +52,7 @@ describe('Customer repository test', () => {
 		await customerRepository.create(customer);
 		customer.changeName('Isaias');
 		await customerRepository.update(customer);
-		const customerModel = await CustomerModel.findOne({ where: { id: '1'}});
+		const customerModel = await CustomerModel.findOne({ where: { id: '1' }});
 
 		expect(customerModel.toJSON()).toStrictEqual({
 			id: customer.id,
@@ -68,7 +68,7 @@ describe('Customer repository test', () => {
 
 	it('Should find a customer', async () => {
 		const customerRepository = new CustomerRepository();
-		const customer = new Customer({ id: '1', name: 'Cliente 1'});
+		const customer = new Customer({ id: '1', name: 'Cliente 1' });
 		const address = new Address({  street: 'Av Dona Eva', number: 20, city: 'São Paulo', zip: '74586421' });
 		customer.addAddress(address);
 		await customerRepository.create(customer);
@@ -101,7 +101,7 @@ describe('Customer repository test', () => {
 		await customerRepository.create(customer2);
 
 		const foundCustomers = await customerRepository.findAll();
-		const customers = [customer, customer2];
+		const customers = [ customer, customer2 ];
 
 		expect(customers.length).toBe(2);
 		expect(customers).toEqual(foundCustomers);

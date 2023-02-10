@@ -52,7 +52,7 @@ export class CustomerRepository implements CustomerRepositoryInterface {
 			throw new Error('Customer not found');
 		}
 
-		const customer = new Customer({id, name: customerModel.name});
+		const customer = new Customer({ id, name: customerModel.name });
 		const address = new Address({
 			street: customerModel.street,
 			number: customerModel.number,

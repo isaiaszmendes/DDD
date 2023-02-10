@@ -3,11 +3,11 @@ import { ProductService } from './product.service';
 
 describe('Product service unit tests', () => {
 	it('should change the prices of all products', () => {
-		const product1 = new Product({ id: '123', name: 'Product1',price: 100 });
-		const product2 = new Product({ id: '123', name: 'Product2',price: 1240 });
-		const product3 = new Product({ id: '123', name: 'Product3',price: 120 });
+		const product1 = new Product({ id: '123', name: 'Product1', price: 100 });
+		const product2 = new Product({ id: '123', name: 'Product2', price: 1240 });
+		const product3 = new Product({ id: '123', name: 'Product3', price: 120 });
 
-		const products = [product1,product2,product3];
+		const products = [ product1, product2, product3 ];
 
 		ProductService.increasePrice(products, 20);
 
