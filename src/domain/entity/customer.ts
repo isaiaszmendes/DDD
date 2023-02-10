@@ -49,7 +49,7 @@ export class Customer {
 
 		this._active = true;
 	}
-  
+
 	deactivate(): void {
 		this._active = false;
 	}

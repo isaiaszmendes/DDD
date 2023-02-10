@@ -7,7 +7,7 @@ import { OrderItemModel } from './order-item.model';
 	timestamps: false
 })
 export class OrderModel extends Model {
-  
+
   @PrimaryKey
   @Column
 	declare id: string;

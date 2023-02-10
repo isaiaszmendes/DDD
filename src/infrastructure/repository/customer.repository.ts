@@ -78,7 +78,7 @@ export class CustomerRepository implements CustomerRepositoryInterface {
 				city: customerModel.city,
 				zip: customerModel.zipCode,
 			});
-			
+
 			customer.addAddress(address);
 			customer.addRewardPoints(customerModel.rewardPoints);
 

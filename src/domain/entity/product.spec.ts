@@ -21,7 +21,7 @@ describe('Product unit test', () => {
 
 	it('should change name', () => {
 		const product = new Product({ id: '123', name: 'produto1', price: 10 });
-    
+
 		product.changeName('Produto 2');
 
 		expect(product.name).toBe('Produto 2');
@@ -29,7 +29,7 @@ describe('Product unit test', () => {
 
 	it('should change price', () => {
 		const product = new Product({ id: '123', name: 'produto1', price: 10 });
-    
+
 		product.changePrice(20);
 
 		expect(product.price).toBe(20);

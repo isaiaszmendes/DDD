@@ -36,6 +36,8 @@
             "always"
         ],
         "@typescript-eslint/adjacent-overload-signatures": "off",
-        "no-extra-semi": "off"
+        "no-extra-semi": "off",
+        "brace-style": ["error", "1tbs"],
+        "no-trailing-spaces": "error"
     }
 }

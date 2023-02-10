@@ -80,7 +80,7 @@ describe('Customer repository test', () => {
 
 	it('Should throw an error when customer is not found', async () => {
 		const customerRepository = new CustomerRepository();
-	
+
 		expect(async() => {
 			await customerRepository.find('1');
 		}).rejects.toThrow('Customer not found');
@@ -93,7 +93,7 @@ describe('Customer repository test', () => {
 		customer.addAddress(address);
 
 		await customerRepository.create(customer);
-		
+
 		const customer2 = new Customer({ id: '2', name: 'Cliente 2' });
 		const address2 = new Address({  street: 'Av Don Adão', number: 5, city: 'São Paulo', zip: '82467885' });
 		customer2.addAddress(address2);

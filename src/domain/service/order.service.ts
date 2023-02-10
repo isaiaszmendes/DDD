@@ -8,7 +8,7 @@ export class OrderService {
 		if (items.length === 0) {
 			throw new Error('Order must have at least one item');
 		}
-    
+
 		const order = new Order({ id: randomUUID(), items, customerId: customer.id });
 		customer.addRewardPoints(order.total() / 2);
 		return order;

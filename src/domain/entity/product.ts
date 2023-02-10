@@ -36,7 +36,7 @@ export class Product {
 		this._name = name;
 		this.validate();
 	}
-  
+
 	get price(): number {
 		return this._price;
 	}

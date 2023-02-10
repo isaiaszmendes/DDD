@@ -1,5 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import { CustomerModel } from '../db/sequelize/model/customer.model';
+import { OrderItemModel } from '../db/sequelize/model/order-item.model';
+import { OrderModel } from '../db/sequelize/model/order.model';
+import { ProductModel } from '../db/sequelize/model/product.model';
 
 describe('Order repository test', () => {
 	let sequelize: Sequelize;
@@ -12,7 +15,7 @@ describe('Order repository test', () => {
 			sync: { force: true },
 		});
 
-		sequelize.addModels([CustomerModel]);
+		sequelize.addModels([CustomerModel, OrderModel,OrderItemModel, ProductModel]);
 		await sequelize.sync();
 	});
 

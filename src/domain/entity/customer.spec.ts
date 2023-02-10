@@ -26,7 +26,7 @@ describe('custormer unit test', () => {
 	});
 
 	it('should throw an error when address is undefined when you active customer', () => {
-  
+
 		expect(() => {
 			const customer = new Customer({ id: '123456', name: 'kathlyn'});
 			customer.activate();
@@ -39,15 +39,15 @@ describe('custormer unit test', () => {
 
 		customer.addAddress(address);
 		customer.activate();
-    
+
 		expect(customer.isActive()).toBe(true);
 	});
 
 	it('should deactivate customer', () => {
 		const customer = new Customer({ id: '123456', name: 'kathlyn'});
-   
+
 		customer.deactivate();
-    
+
 		expect(customer.isActive()).toBe(false);
 	});
 
@@ -56,7 +56,7 @@ describe('custormer unit test', () => {
 		expect(customer.rewardPoints).toBe(0);
 		customer.addRewardPoints(10);
 		expect(customer.rewardPoints).toBe(10);
-    
+
 		customer.addRewardPoints(20);
 		expect(customer.rewardPoints).toBe(30);
 	});
