@@ -33,6 +33,7 @@ export class Order {
 	}
 
 	addItem(item: OrderItem): void {
+		this.validate();
 		this._items.push(item);
 	}
 
