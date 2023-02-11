@@ -34,7 +34,7 @@ describe('Order repository test', () => {
 	it('should create a new Order', async () => {
 		const customerRepository = new CustomerRepository();
 		const customer = new Customer({ id: '1267', name: 'John Smith' });
-		const address = new Address({ street: '1234 Main St', zip: '1234', city: 'New York', number: 1 });
+		const address = new Address({ street: 'Main St', zip: '12345678', city: 'New York', number: 1 });
 		customer.addAddress(address);
 		await customerRepository.create(customer);
 
@@ -74,5 +74,66 @@ describe('Order repository test', () => {
 			]
 		});
 
+	});
+
+	it('Should update an Order', async () => {
+		const customerRepository = new CustomerRepository();
+		const customer = new Customer({ id: '470', name: 'Sara Smith' });
+		const address = new Address({ street: 'São Miguel Av', zip: '44687203', city: 'New York', number: 1 });
+		customer.addAddress(address);
+		await customerRepository.create(customer);
+
+		const productRepository = new ProductRepository();
+		const product = new Product({ id: '26', name: 'Mesa', price: 2000 });
+		await productRepository.create(product);
+
+		const orderItem1 = new OrderItem({
+			id: '1',
+			name: product.name,
+			price: product.price,
+			productId: product.id,
+			quantity: 3,
+		});
+
+		const order = new Order({ id: '31', customerId: customer.id, items: [ orderItem1 ] });
+		const orderRepository = new OrderRepository();
+		await orderRepository.create(order);
+		const orderItem2 = new OrderItem({
+			id: '2',
+			name: product.name,
+			price: product.price,
+			productId: product.id,
+			quantity: 3,
+		});
+		order.addItem(orderItem2);
+		await orderRepository.update(order);
+		const orderModel = await OrderModel.findOne({
+			where: { id: order.id },
+			include: [ 'items' ]
+		});
+
+		expect(orderModel.toJSON()).toStrictEqual({
+			id: '31',
+			customer_id: customer.id,
+			total: order.total(),
+			items: [
+				{
+					id: orderItem1.id,
+					name: orderItem1.name,
+					price: orderItem1.price,
+					quantity: orderItem1.quantity,
+					product_id: orderItem1.productId,
+					order_id: order.id,
+				},
+				{
+					id: orderItem2.id,
+					name: orderItem2.name,
+					price: orderItem2.price,
+					quantity: orderItem2.quantity,
+					product_id: orderItem2.productId,
+					order_id: order.id,
+				}
+			]
+		});
 	});
 });
