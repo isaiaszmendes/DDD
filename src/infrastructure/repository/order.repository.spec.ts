@@ -173,4 +173,45 @@ describe('Order repository test', () => {
 			await orderRepository.find('1');
 		}).rejects.toThrow('Order not found');
 	});
+
+	it('Should get all Orders', async () => {
+		const customerRepository = new CustomerRepository();
+		const customer = new Customer({ id: '470', name: 'Sara Smith' });
+		const address = new Address({ street: 'São Miguel Av', zip: '44687203', city: 'New York', number: 1 });
+		customer.addAddress(address);
+		await customerRepository.create(customer);
+
+		const productRepository = new ProductRepository();
+		const product = new Product({ id: '26', name: 'Mesa', price: 2000 });
+		await productRepository.create(product);
+
+		const orderItem1 = new OrderItem({
+			id: '1',
+			name: product.name,
+			price: product.price,
+			productId: product.id,
+			quantity: 3,
+		});
+		const orderItem2 = new OrderItem({
+			id: '1',
+			name: product.name,
+			price: product.price,
+			productId: product.id,
+			quantity: 3,
+		});
+
+		const orderRepository = new OrderRepository();
+		const order1 = new Order({ id: '134', customerId: customer.id, items: [ orderItem1 ] });
+		const order2 = new Order({ id: '135', customerId: customer.id, items: [ orderItem1, orderItem2 ] });
+		await orderRepository.create(order1);
+		await orderRepository.create(order2);
+
+
+		const orders = await orderRepository.findAll();
+
+		expect(orders).toStrictEqual({
+
+		});
+
+	});
 });
