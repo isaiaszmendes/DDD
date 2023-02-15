@@ -9,7 +9,7 @@ export type OrderProps = {
 export class Order {
 	private _id: string;
 	private _customerId: string;
-	private _items: Array<OrderItem>;
+	private _items: Array<OrderItem> = [];
 	private _total: number;
 
 	constructor({ id, customerId, items }: OrderProps) {

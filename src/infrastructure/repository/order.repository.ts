@@ -1,4 +1,5 @@
 import { Order } from '../../domain/entity/order';
+import { OrderItem } from '../../domain/entity/order-item';
 import { OrderRepositoryInterface } from '../../domain/repository';
 import { OrderItemModel } from '../db/sequelize/model/order-item.model';
 import { OrderModel } from '../db/sequelize/model/order.model';
@@ -20,6 +21,7 @@ export class OrderRepository implements OrderRepositoryInterface {
 			include: [ { model: OrderItemModel } ]
 		});
 	}
+
 	async update(entity: Order): Promise<void> {
 		const sequelize = OrderModel.sequelize;
 		await sequelize.transaction(async (t) => {
@@ -44,26 +46,44 @@ export class OrderRepository implements OrderRepositoryInterface {
 	}
 
 	async find(id: string): Promise<Order> {
-		const order = await OrderModel.findOne({ where: { id }, rejectOnEmpty: true, });
-		console.log({ order: order.items });
-		const newOrder = new Order({
+		let order;
+		try {
+			order = await OrderModel.findOne({
+				where: { id },
+				rejectOnEmpty: true,
+				include: [ 'items' ]
+			});
+		} catch (error) {
+			throw new Error('Order not found');
+		}
+
+		return new Order({
 			id: order.id,
 			customerId: order.customer_id,
-			items: []
+			items: order.items?.map(item => new OrderItem({
+				id: item.id,
+				name: item.name,
+				price: item.price,
+				productId: item.product_id,
+				quantity: item.quantity,
+			}))
 		});
-		return newOrder;
 	}
 
 	async findAll(): Promise<Order[]> {
-		const orders = await OrderModel.findAll();
+		const orders = await OrderModel.findAll({ include: [ 'items' ] });
 
-		const newOrders = orders.map(order => new Order({
+		return orders.map(order => new Order({
 			id: order.id,
 			customerId: order.customer_id,
-			items: []
+			items: order.items.map(item => new OrderItem({
+				id: item.id,
+				name: item.name,
+				price: item.price,
+				productId: item.product_id,
+				quantity: item.quantity
+			}))
 		}));
-
-		return newOrders;
 	}
 
 }
