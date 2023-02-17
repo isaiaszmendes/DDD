@@ -5,5 +5,4 @@ export class SendEmailWhenProductIsCreatedHandler implements EventHandlerInterfa
 	handle(event: ProductCreatedEvent): void {
 		console.log('Sending email to ...');
 	}
-
 }
