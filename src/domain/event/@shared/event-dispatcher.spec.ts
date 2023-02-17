@@ -39,4 +39,26 @@ describe('Domain events tests', () => {
 		eventDispatcher.unregisterAll();
 		expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeUndefined();
 	});
+
+
+	it('should notify all event handlers', () => {
+		const eventDispatcher = new EventDispatcher();
+		const eventHandler = new SendEmailWhenProductIsCreatedHandler();
+		const spyEventHandler = jest.spyOn(eventHandler, 'handle');
+
+		eventDispatcher.register('ProductCreatedEvent', eventHandler);
+		expect(eventDispatcher.getEventHandlers['ProductCreatedEvent']).toBeDefined();
+		expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'].length).toBe(1);
+		expect(eventDispatcher.getEventHandlers['ProductCreatedEvent'][0]).toMatchObject(eventHandler);
+
+		const productCreatedEvent = new ProductCreatedEvent({
+			name: 'Produto Garrafa',
+			description: 'garrafa termina com 600ml de capacidade',
+			price: 36
+		});
+
+		// Quando o noty for executado, o SendEmailWhenProductIsCreatedHandler.handler() deve ser invocado
+		eventDispatcher.notify(productCreatedEvent);
+		expect(spyEventHandler).toHaveBeenCalled();
+	});
 });
