@@ -25,12 +25,8 @@ export class EventDispatcher implements EventDispatcherInterface {
 		}
 	}
 
-	notify(event: EventInterface): void {
-		throw new Error('Method not implemented.');
-	}
-
 	unregisterAll(): void {
-		throw new Error('Method not implemented.');
+		this.eventHandlers = {};
 	}
 
 }
