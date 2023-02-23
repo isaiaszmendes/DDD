@@ -57,7 +57,7 @@ describe('Domain events tests', () => {
 			price: 36
 		});
 
-		// Quando o noty for executado, o SendEmailWhenProductIsCreatedHandler.handler() deve ser invocado
+		// Quando o notify for executado, o SendEmailWhenProductIsCreatedHandler.handler() deve ser invocado
 		eventDispatcher.notify(productCreatedEvent);
 		expect(spyEventHandler).toHaveBeenCalled();
 	});
