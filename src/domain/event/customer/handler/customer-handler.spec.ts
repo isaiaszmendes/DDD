@@ -22,7 +22,6 @@ describe('Customer Handler Unit Tests', () => {
 		new SendLog2WhenCustomerIsCreatedHandler().handle(customerCreatedEvent);
 
 		expect(spyInstanceLog).toHaveBeenCalled();
-
 		expect(spyInstanceLog).toHaveBeenCalledWith('Esse é o segundo console.log do evento: CustomerCreated');
 	});
 
@@ -43,14 +42,14 @@ describe('Customer Handler Unit Tests', () => {
 		const customerCreatedEvent = new CustomerCreatedEvent({
 			id: customer.id,
 			name: customer.name,
-			address: customer.address.toString(),
+			address: Object.values(customer.address).join(', '),
 		});
 
 		new SendLogWhenCustomerAddressIsChangeHandler().handle(customerCreatedEvent);
 
 		expect(spyInstanceLog).toHaveBeenCalled();
 		expect(spyInstanceLog).toHaveBeenCalledWith(
-			`Endereço do cliente: ${customer.id}, ${customer.name} alterado para: ${customer.address.toString()}`,
+			`Endereço do cliente: ${customer.id}, ${customer.name} alterado para: Av Dona Eva, 20, 74586421, São Paulo`,
 		);
 	});
 });
