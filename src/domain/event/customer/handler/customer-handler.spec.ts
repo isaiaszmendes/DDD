@@ -26,7 +26,7 @@ describe('Customer Handler Unit Tests', () => {
 		expect(spyInstanceLog).toHaveBeenCalledWith('Esse é o segundo console.log do evento: CustomerCreated');
 	});
 
-	test('Send 2º Log2 When Customer Is Created Handler', () => {
+	test('Send 2º Log When Customer Is Created Handler', () => {
 		const customer = new Customer({ id: '1', name: 'Mendes' });
 		const customerCreatedEvent = new CustomerCreatedEvent(customer);
 
