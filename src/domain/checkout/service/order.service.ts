@@ -1,7 +1,8 @@
-import { Customer } from '../entity/customer';
-import { Order } from '../checkout/entity/order';
+
 import { OrderItem } from '../entity/order-item';
 import { randomUUID } from 'crypto';
+import { Customer } from '../../customer/entity/customer';
+import { Order } from '../entity/order';
 
 export class OrderService {
 	static placeOrder(customer: Customer, items: OrderItem[]): Order {
