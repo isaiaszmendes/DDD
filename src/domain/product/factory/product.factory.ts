@@ -9,7 +9,7 @@ interface ProductFactoryProps {
 }
 
 export class ProductFactory {
-	public static create({ type, name, price }: ProductFactoryProps) {
+	public static create({ type, name, price }: ProductFactoryProps): Product | ProductB {
 		switch (type) {
 		case 'a':
 			return new Product({ id: randomUUID(), name, price });
