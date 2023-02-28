@@ -17,4 +17,9 @@ describe('Product factory unit test', () => {
 		expect(product.constructor.name).toBe('ProductB');
 	});
 
+	it('Should throw an error when product type is not supported', () => {
+		expect(() => {
+			ProductFactory.create({ type: 'x', name: 'Product A', price: 1 });
+		}).toThrowError('Product type is not supported');
+	});
 });
